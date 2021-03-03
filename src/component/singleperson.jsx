@@ -1,16 +1,40 @@
 import React from "react";
+import {
+  Col,
+  InputGroup,
+  Input,
+  Button,
+  InputGroupAddon,
+  Card,
+  CardTitle,
+} from "reactstrap";
 
+const SinglePerson = ({ name, deleted, edited }) => {
+  return (
+    <div
+      className="m-2 p-2 col-4 text-center mx-auto"
+      md={{ size: 4, offset: 4 }}
+    >
+      <Card
+        body
+        className="text-center text-white justify-content-center"
+        md={{ size: 4, offset: 4 }}
+        color="info"
+      >
+        <CardTitle tag="h5">{name}</CardTitle>
 
-
-const SinlgePerson=({name,family,city,persondeleted,edited})=>{
-    return(
-        <div>
-           name and family:{name} {family} lives in :{city}
-           <input placeholder={name} onChange={edited} />
-           <button onClick={persondeleted}>delete</button>
-        </div>
-
-    );
-
-}
-export default SinlgePerson;
+        <Col>
+          <InputGroup>
+            <Input placeholder={name} onChange={edited} />
+            <InputGroupAddon addonType="append">
+              <Button onClick={deleted} color="danger">
+                <i className="fas fa-user-minus"></i>
+              </Button>
+            </InputGroupAddon>
+          </InputGroup>
+        </Col>
+      </Card>
+    </div>
+  );
+};
+export default SinglePerson;

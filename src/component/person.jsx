@@ -1,24 +1,18 @@
 import React from "react";
-import SinlgePerson from "./singleperson";
+import SinglePerson from "./singleperson";
 
-
-
-const Person = ({persons,rsondelete,editname}) => {
-    return (
-        <div>
-            { persons.map(perso => (
-                <SinlgePerson 
-                    key={perso.id}
-                    name={perso.name}
-                    family={perso.family}
-                    city={perso.city}
-                    persondeleted={()=>rsondelete(perso.id)}
-                    edited={(event)=>editname(event,perso.id)}
-                />
-            ))}
-        </div>
-    );
+const Person = ({ person, deleteperson, editperson }) => {
+  return (
+    <div>
+      {person.map((persons) => (
+        <SinglePerson
+          key={persons.id}
+          name={persons.name}
+          deleted={() => deleteperson(persons.id)}
+          edited={(event) => editperson(event, persons.id)}
+        />
+      ))}
+    </div>
+  );
 };
-
-
 export default Person;
