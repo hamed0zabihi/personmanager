@@ -1,27 +1,18 @@
 import React from "react";
-import Person from "./component/person";
-import {
-  Button,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  Col,
-  Badge,
-} from "reactstrap";
-import { ToastContainer, toast } from "react-toastify";
+import ExampleContext from "./context/ExampleContext";
+import AddPersons from "./component/AddPerson";
+import ShowPerson from "./component/ShowPerson";
+import { toast } from "react-toastify";
 
 class App extends React.Component {
   state = {
-    data: [
-      // {id:0,name:"hamed zabihi"},
-      // {id:1,name:"mohammad garmabi"},
-      // {id:2,name:"ahmad rezaei"}
-    ],
+    data: [],
     valueInput: "",
-    showPerson: false,
+    // showPerson: false,
+    show: false,
   }; //end state
 
-  handlePerson = (id) => {
+  handleDeletePerson = (id) => {
     let datafordelet = [...this.state.data];
     let newdata = datafordelet.filter((p) => p.id !== id);
     this.setState({ data: newdata });
@@ -75,59 +66,51 @@ class App extends React.Component {
   };
 
   handleshowPerson = () => {
-    this.setState({ showPerson: !this.state.showPerson });
+    this.setState({ show: !this.state.show });
   };
-  render() {
-    const { data } = this.state;
-    let colorBadge = [];
-    if (data.length <= 1) {
-      colorBadge.push("light");
-    }
-    if (data.length <= 3) {
-      colorBadge.push("warning");
-    }
-    if (data.length >= 4) {
-      colorBadge.push("success");
-    }
 
+  // lifecycle
+  componentWillUnmount() {
+    console.log("componentWillUnmount");
+  }
+  componentDidMount() {
+    console.log("componentdidmout");
+  }
+  componentWillUpdate(nextProp, nextState, nextContex) {
+    console.log("componentWillUpdate", nextProp, nextState, nextContex);
+  }
+  componentDidUpdate(prevtProp, prevState, prevContex) {
+    console.log("componentDidUpdate", prevtProp, prevState, prevContex);
+  }
+  render() {
     return (
       <div className="text-center m-2 p-2">
-        <Col className="md-3 mt-auto " md={{ size: 4, offset: 4 }}>
-          <InputGroup className="md-3">
-            <Input
-              value={this.state.valueInput}
-              onChange={this.handleInput}
-              placeholder="add new person"
-            />
-            <InputGroupAddon addonType="append">
-              <Button onClick={this.addPerson} color="success">
-                <i className="fas fa-user-plus"></i>
-              </Button>
-            </InputGroupAddon>
-          </InputGroup>
-          <ToastContainer />
-          {/* Same as */}
-        </Col>
-
-        <Button
-          className="m-4"
-          onClick={this.handleshowPerson}
-          color={this.state.showPerson ? "info" : "danger"}
+        {/* add person */}
+        <ExampleContext.Provider
+          value={{
+            state: this.state,
+            handleDeletePerson: this.handleDeletePerson,
+            editpersons: this.editpersons,
+            handleInput: this.handleInput,
+            addPerson: this.addPerson,
+            handleshowPerson: this.handleshowPerson,
+          }}
         >
-          show Person
-          <Badge color={`${colorBadge.join(" ")}`}>
-            {this.state.data.length}
-          </Badge>
-        </Button>
-        {this.state.showPerson ? (
-          <Person
-            person={data}
-            deleteperson={this.handlePerson}
-            editperson={this.editpersons}
-          />
-        ) : (
-          ""
-        )}
+          <AddPersons />
+
+          {/*end AddPerson  */}
+          {/* {this.state.showPerson ? (
+            <Person
+              person={data}
+              deleteperson={this.handleDeletePerson}
+              editperson={this.editpersons}
+            />
+          ) : (
+            ""
+          )} */}
+
+          <ShowPerson />
+        </ExampleContext.Provider>
       </div>
     );
   }
