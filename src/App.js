@@ -3,6 +3,8 @@ import ExampleContext from "./context/ExampleContext";
 import AddPersons from "./component/AddPerson";
 import ShowPerson from "./component/ShowPerson";
 import { toast } from "react-toastify";
+import FirstHoc from "./hoc/firsthoc";
+import secondcomponenthoc from "./hoc/secondcomponenthoc";
 
 class App extends React.Component {
   state = {
@@ -85,21 +87,22 @@ class App extends React.Component {
   render() {
     return (
       <div className="text-center m-2 p-2">
-        {/* add person */}
-        <ExampleContext.Provider
-          value={{
-            state: this.state,
-            handleDeletePerson: this.handleDeletePerson,
-            editpersons: this.editpersons,
-            handleInput: this.handleInput,
-            addPerson: this.addPerson,
-            handleshowPerson: this.handleshowPerson,
-          }}
-        >
-          <AddPersons />
+        <FirstHoc classes="rtl">
+          {/* add person */}
+          <ExampleContext.Provider
+            value={{
+              state: this.state,
+              handleDeletePerson: this.handleDeletePerson,
+              editpersons: this.editpersons,
+              handleInput: this.handleInput,
+              addPerson: this.addPerson,
+              handleshowPerson: this.handleshowPerson,
+            }}
+          >
+            <AddPersons />
 
-          {/*end AddPerson  */}
-          {/* {this.state.showPerson ? (
+            {/*end AddPerson  */}
+            {/* {this.state.showPerson ? (
             <Person
               person={data}
               deleteperson={this.handleDeletePerson}
@@ -109,10 +112,11 @@ class App extends React.Component {
             ""
           )} */}
 
-          <ShowPerson />
-        </ExampleContext.Provider>
+            <ShowPerson />
+          </ExampleContext.Provider>
+        </FirstHoc>
       </div>
     );
   }
 } //end App
-export default App;
+export default secondcomponenthoc(App);
