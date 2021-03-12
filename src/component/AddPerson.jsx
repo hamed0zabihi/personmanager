@@ -26,8 +26,8 @@ const AddPersons = () => {
           colorBadge.push("success");
         }
         return (
-          <div>
-            <Col className="md-3 mt-auto " md={{ size: 4, offset: 4 }}>
+          <div className="m-3">
+            <Col className="md-3  " md={{ size: 4, offset: 4 }}>
               <InputGroup className="md-3">
                 <Input
                   value={context.state.valueInput}

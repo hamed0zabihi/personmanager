@@ -12,12 +12,12 @@ import {
 const SinglePerson = ({ name, deleted, edited }) => {
   return (
     <div
-      className="m-2 p-2 col-4 text-center mx-auto"
+      className="m-2 p-4 col-4 text-center mx-auto"
       md={{ size: 4, offset: 4 }}
     >
       <Card
         body
-        className="text-center text-white justify-content-center"
+        className="text-center   p-4 text-white justify-content-center"
         md={{ size: 4, offset: 4 }}
         color="info"
       >
